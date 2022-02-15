@@ -1,0 +1,124 @@
+* docs2slob
+** About  
+
+This script converts documentation retrieved from DevDocs to a [[https://github.com/itkach/slob][Slob]]
+file, for offline usage with the [[https://github.com/itkach/aard2-android][Aard2]] dictionary app.
+
+** Features
+- list docs available through DevDocs
+- download docs from DevDocs
+- generate Slob files from DevDocs documentation
+- tokenize and filter keys
+- highlight external links
+
+** Installation
+
+#+BEGIN_SRC sh
+git clone https://github.com/konstruktiv/docs2slob
+cd docs2slob
+chmod +x docs2slob.py
+#+END_SRC
+
+*** Requirement: slob.py
+
+Follow the [[https://github.com/itkach/slob][instructions]] to install =slob.py= and its dependencies.   
+   
+** Usage
+*** Basic example
+
+Download docs and generate documentation with tokenized keys, and highlighted external links:
+#+BEGIN_SRC sh
+./docs2slob.py -s python~3.10 --docdir docdir/ --outdir outdir/ -d -g -t -e "[EXT] "
+#+END_SRC
+
+*** Command line options
+
+Show the docs2slob usage instructions:
+#+BEGIN_SRC sh
+./docs2slob.py -h
+#+END_SRC
+   
+*** Available docs
+
+List docs available for download from DevDocs and take note of the
+slug column:
+#+BEGIN_SRC sh
+./docs2slob.py -l
+#+END_SRC
+   
+*** Preserve original lookup keys
+
+The basic mode preserves the original lookup keys and entries. This is
+useful for archiving documentation in the Slob format. It is not 
+not recommended for general use.
+#+BEGIN_SRC sh
+# download documentation to the docdir/python~3.10 directory and generate the file outdir/python~3.10.slob 
+./docs2slob.py -d -s python~3.10 --docdir docdir/ --outdir outdir/ -g
+
+# generate Slob files in outdir from all documentations contained in docdir
+./docs2slob.py --docdir docdir/ --outdir outdir/ -g
+#+END_SRC
+
+*** Compatibility mode
+
+The =-c= / =--compat= option makes references more usable with
+GoldenDict, but can break anchored links between entries.
+#+BEGIN_SRC sh
+./docs2slob.py -s python~3.10 --docdir docdir/ --outdir outdir/ -g -c
+#+END_SRC
+
+*** Increase lookup options
+
+Slob is a key-value storage format. Aard2 searches only the keys of
+Slob files and lookups use =startsWith=.  The =-t= / =--tokenize= option
+splits keys at spaces and underscores to create entries starting with
+each token of a key.
+
+For example, using the =-c= and =-t= options, a key named "Reference 
+of tokenize_string" would result in the same content available 
+under multiple keys:
+- "Reference-of-tokenize-string"
+- "of~Reference-of-tokenize-string"
+- "tokenize~Reference-of-tokenize-string"
+- "string~Reference-of-tokenize-string"
+
+This makes lookups easier but adds noise and duplicate entries to the
+dictionary. The =-f= / =--filter= option can exclude words from the 
+tokenization to reduce the noise.
+#+BEGIN_SRC sh
+# this would remove the second and fourth key variations in the above list
+./docs2slob.py --docdir docdir/ --outdir outdir/ -g -t -f of,string
+#+END_SRC
+
+*** Highlight external links 
+
+Specify a string that will be prepended to external links:
+#+BEGIN_SRC sh
+./docs2slob.py -s python~3.10 --docdir docdir/ --outdir outdir/ -g -e "[EXT] "
+#+END_SRC
+   
+** Download documentation from DevDocs with Thor
+
+API documentations can be downloaded from DevDocs with =docs2slob.py=.
+
+More options are available when downloading documentations using
+=Thor= following the [[https://github.com/freeCodeCamp/devdocs/blob/main/README.md][instructions]]. To generate a Slob file after
+downloading with =Thor=, point the =--docdir= argument to the
+=/public/docs= in your DevDocs directory.
+      
+** Contribute 
+
+You can contribute by reporting bugs, and adding issues or documentation through pull requests.
+   
+** Software that uses the Slob format
+
+- [[https://github.com/itkach/aard2-android][Aard2]] (Android)
+- [[https://github.com/goldendict/goldendict][GoldenDict]] (cross-platform)
+- [[https://github.com/ilius/pyglossary][PyGlossary]] (cross-platform)
+** Credits
+
+- DevDocs - API Documentation Browser: [[https://www.devdocs.io][https://www.devdocs.io]]
+- Slob: [[https://github.com/itkach/slob][https://github.com/itkach/slob]]
+  
+** Author
+[[mailto:konstruktiv@gmx.net][konstruktiv]]
