@@ -16,6 +16,7 @@ file, for offline usage with the [[https://github.com/itkach/aard2-android][Aard
 #+BEGIN_SRC sh
 git clone https://github.com/konstruktiv/docs2slob
 cd docs2slob
+pip install -r requirements.txt
 chmod +x docs2slob.py
 #+END_SRC
 
