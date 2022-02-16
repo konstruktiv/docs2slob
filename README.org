@@ -1,7 +1,7 @@
 * docs2slob
 ** About  
 
-This script converts documentation retrieved from DevDocs to [[https://github.com/itkach/slob][Slob]]
+This script converts documentation retrieved from [[https://www.devdocs.io/][DevDocs]] to [[https://github.com/itkach/slob][Slob]]
 dictionaries, for offline usage with the [[https://github.com/itkach/aard2-android][Aard2]] dictionary app.
 
 *This is a very early version of docs2slob which has only been tested with a few documentations.* *When you find bugs, you can report them in the issue tracker.*
@@ -120,8 +120,8 @@ You can contribute by reporting bugs, and adding issues or documentation through
 - [[https://github.com/ilius/pyglossary][PyGlossary]] (cross-platform)
 ** Credits
 
-- DevDocs - API Documentation Browser: [[https://www.devdocs.io][https://www.devdocs.io]]
-- Slob: [[https://github.com/itkach/slob][https://github.com/itkach/slob]]
+- [[https://github.com/freeCodeCamp/devdocs][DevDocs - API Documentation Browser]]
+- [[https://github.com/itkach/slob][Slob - Data store for Aard 2]]
   
 ** Author
 [[mailto:konstruktiv@gmx.net][konstruktiv]]
